@@ -1,0 +1,11 @@
+
+```
+1.0.0 (Wed Jun 17 10:31:46 BRT 2009):
+    Implemented vbscript hack so it works with IE.
+
+0.1.1 (Thu Oct  4 16:12:02 BRT 2007):
+    Bug fix in .send() method.
+
+0.1 (Wed Oct  3 10:14:04 BRT 2007):
+    Initial release.
+```
