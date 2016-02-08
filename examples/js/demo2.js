@@ -10,7 +10,7 @@ var baseUrl = "http://dapper.pmel.noaa.gov/dapper/epic/tao_time_series.cdp";
  */
 function onLoad() {
     // Load map.
-    OpenLayers.ProxyHost = '/proxy/';
+    OpenLayers.ProxyHost = 'proxy.php';
     map = new OpenLayers.Map('map');
     map.addControl(new OpenLayers.Control.LayerSwitcher());
 
@@ -28,10 +28,10 @@ function onLoad() {
     // Add buoys. Apparently, dapper always returns the data
     // in the order lon/lat/_id, independently of the projection.
     var url = baseUrl + ".dods?location.lon,location.lat,location._id";
-    loadData(url, plotBuoys, '/proxy/');
+    loadData(url, plotBuoys, 'proxy.php');
 
     // Read variables in each location.
-    loadDataset(baseUrl, loadVariables, '/proxy/');
+    loadDataset(baseUrl, loadVariables, 'proxy.php');
 }
 
 
@@ -124,7 +124,7 @@ function getData() {
     //url += '&location.time>1.1e12';  // get only a couple of points for this demo.
     url += '&location._id=' + id;
     
-    loadData(url, plotData, '/proxy/');
+    loadData(url, plotData, 'proxy.php');
 }
 
 

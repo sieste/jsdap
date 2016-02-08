@@ -8,7 +8,7 @@
                 var ta = document.getElementById('textarea');
                 loadData(url, function(data) {
                     ta.value = toJsonString(data);
-                }, '/proxy/');
+                }, 'proxy.php');
                 return false;
             }
         </script>
