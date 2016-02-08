@@ -125,7 +125,7 @@ function ddsParser(dds) {
         var baseType = new dapType();
 
         baseType.type = this.consume('\\w+');
-        baseType.name = this.consume('\\w+');
+        baseType.name = this.consume('[A-Za-z0-9_-]+');
 
         baseType.dimensions = [];
         baseType.shape = [];
@@ -164,7 +164,7 @@ function ddsParser(dds) {
         }
         this.consume('}');
 
-        grid.name = this.consume('\\w+');
+        grid.name = this.consume('[a-zA-Z0-9_-]+');
         this.consume(';');
         
         return grid;
@@ -181,7 +181,7 @@ function ddsParser(dds) {
         }
         this.consume('}');
 
-        sequence.name = this.consume('\\w+');
+        sequence.name = this.consume('[a-zA-Z0-9_-]+');
         this.consume(';');
 
         return sequence;
@@ -198,7 +198,7 @@ function ddsParser(dds) {
         }
         this.consume('}');
 
-        structure.name = this.consume('\\w+');
+        structure.name = this.consume('[a-zA-Z0-9_-]+');
         this.consume(';');
 
         return structure;
@@ -244,7 +244,7 @@ function dasParser(das, dataset) {
     };
 
     this._container = function() {
-        var name = this.consume('[\\w_\\.]+');
+        var name = this.consume('[A-Za-z0-9_.-]+');
         this.consume('{');
 
         if (name.indexOf('.') > -1) {
@@ -282,7 +282,7 @@ function dasParser(das, dataset) {
             if (atomicTypes.contains(this.peek('\\w+').toLowerCase())) {
                 this._attribute(output);                
             } else {
-                var name = this.consume('\\w+');
+                var name = this.consume('[a-zA-Z0-9_-]+');
                 this.consume('{');
                 output[name] = this._metadata();
                 this.consume('}');
@@ -293,7 +293,7 @@ function dasParser(das, dataset) {
 
     this._attribute = function(object) {
         var type = this.consume('\\w+');
-        var name = this.consume('\\w+');
+        var name = this.consume('[a-zA-Z0-9_-]+');
 
         var values = [];
         while (!this.peek(';')) {
@@ -568,7 +568,12 @@ function dapUnpacker(xdrdata, dapvar) {
             padding = (4 - (n % 4)) % 4;
             this._pos = i + n + padding;
 
-            out.push(data);
+            // convert back to string
+            var str = '';
+            for (var i=0; i<n; i++) {
+                str += String.fromCharCode(data[i]);
+            }
+            out.push(str);
         }
         
         return out;
